@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="hero"></div>
+
+        <div class="container">
+            <div class="clock">
+                <span id="hrs">00</span>
+                <span >:</span>
+                <span id="min">00</span>
+                <span>:</span>
+                <span id="sec">00:</span>
+            </div>
+            <div class="timezone-selector">
+                <label for="timezones">Choose a timezone:</label>
+                <select id="timezones">
+                    <option value="UTC">UTC</option>
+                    <option value="America/New_York">New York (EST)</option>
+                    <option value="America/Chicago">Chicago (CST)</option>
+                    <option value="America/Denver">Denver (MST)</option>
+                    <option value="America/Los_Angeles">Los Angeles (PST)</option>
+                    <option value="America/Sao_Paulo">São Paulo (BRT)</option>
+                    <option value="Europe/London">London (GMT)</option>
+                    <option value="Europe/Berlin">Berlin (CET)</option>
+                    <option value="Europe/Athens">Athens (EET)</option>
+                    <option value="Europe/Moscow">Moscow (MSK)</option>
+                    <option value="Africa/Johannesburg">Johannesburg (SAST)</option>
+                    <option value="Asia/Dubai">Dubai (GST)</option>
+                    <option value="Asia/Tokyo">Tokyo (JST)</option>
+                    <option value="Asia/Singapore">Singapore (SGT)</option>
+                    <option value="Australia/Sydney">Sydney (AEST)</option>
+                    <option value="Pacific/Auckland">Auckland (NZST)</option>
+                    <option value="Asia/Kolkata">Kolkata (IST)</option>
+                    <option value="Asia/Hong_Kong">Hong Kong (HKT)</option>
+                    <option value="Europe/Paris">Paris (CET)</option>
+                    <option value="Europe/Rome">Rome (CET)</option>
+                    <option value="America/Mexico_City">Mexico City (CST)</option>
+                    <option value="America/Toronto">Toronto (EST)</option>
+                    <option value="Asia/Seoul">Seoul (KST)</option>
+                    <option value="America/Argentina/Buenos_Aires">Buenos Aires (ART)</option>
+                    <option value="America/Santiago">Santiago (CLT)</option>
+                    <option value="Africa/Cairo">Cairo (EET)</option>
+                    <option value="Europe/Madrid">Madrid (CET)</option>
+                    <option value="Europe/Barcelona">Barcelona (CET)</option>
+                    <option value="Europe/Amsterdam">Amsterdam (CET)</option>
+                    <option value="Europe/Istanbul">Istanbul (TRT)</option>
+        </div>
+    </div>
+    
+
+
+    <script>
+
+let hrs = document.getElementById("hrs");
+let min = document.getElementById("min");
+let sec = document.getElementById("sec");
+const timezonesSelect = document.getElementById('timezones');
+
+function updateTime(){
+    let currentTime = new Date();
+    const selectedTimezone = timezonesSelect.value;
+    const options = { timeZone: selectedTimezone, hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    const formatter = new Intl.DateTimeFormat([], options);
+    const [{ value: hour }, , { value: minute }, , { value: second }] = formatter.formatToParts(currentTime);
+hrs.innerHTML = hour ;
+min.innerHTML = minute;
+sec.innerHTML = second;
+
+}
+
+// Update the clock immediately on load
+updateTime();
+// Update the clock every second
+setInterval(updateTime, 1000);
+
+// Update the clock when the timezone changes
+timezonesSelect.addEventListener('change', updateTime);
+
+
+
+    </script>
+</body>
+</html>
